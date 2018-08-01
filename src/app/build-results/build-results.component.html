@@ -1,0 +1,28 @@
+<div class="widget build-results" *ngIf="config && buildResults && buildResults.latest">
+  <h3>{{ config.title }}</h3>
+
+  <div class="row no-gutters">
+    <div class="build-history col-1">
+      <a *ngFor="let item of buildResults.previous; let i = index" [href]="item.uri" target="_blank" [class]="'status-' + (i+1)" [title]="'Build #' + item.buildNumber">
+        <span [class]="item.class"></span>
+      </a>
+    </div>
+
+    <div class="latest-build col-11">
+      <div class="row no-gutters">
+        <div [class]="'build-status inverse-color text-center col-4 ' + buildResults.latest.class" [ngSwitch]="buildResults.latest.class">
+          <fa-icon icon="spinner" *ngSwitchCase="'info'"></fa-icon>
+          <fa-icon icon="check" *ngSwitchCase="'success'"></fa-icon>
+          <fa-icon icon="times" *ngSwitchCase="'danger'"></fa-icon>
+          <span>{{ buildResults.latest.status }}</span>
+        </div>
+
+        <div class="build-info col-8">
+          <span>Build #<a class="number" href="{{ buildResults.latest.uri }}" target="_blank">{{ buildResults.latest.buildNumber }}</a></span>
+          <span class="reason">{{ buildResults.latest.reason }}</span>
+          <span>{{ buildResults.latest.timeStarted}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

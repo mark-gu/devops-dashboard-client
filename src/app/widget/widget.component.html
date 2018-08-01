@@ -1,0 +1,6 @@
+<div *ngIf="config" [ngSwitch]="config.type">
+  <app-build-results *ngSwitchCase=" 'build-results' " [config]="config"></app-build-results>
+
+  <div *ngSwitchDefault>
+  </div>
+</div>

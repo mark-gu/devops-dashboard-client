@@ -1,0 +1,62 @@
+@import '~bootstrap/scss/bootstrap';
+@import './variables.scss';
+
+h3 {
+  font-size: 1rem;
+}
+
+.info {
+  background-color: $info-color;
+  color: $text-color;
+
+  &.inverse-color {
+    background-color: transparent;
+    color: $info-color;
+  }
+}
+
+.success {
+  background-color: $success-color;
+  color: $text-color;
+
+  &.inverse-color {
+    background-color: transparent;
+    color: $success-color;
+  }
+}
+
+.warn {
+  background-color: $warn-color;
+  color: $text-color;
+
+  &.inverse-color {
+    background-color: transparent;
+    color: $warn-color;
+  }
+}
+
+.danger {
+  background-color: $danger-color;
+  color: $text-color;
+
+  &.inverse-color {
+    background-color: transparent;
+    color: $danger-color;
+  }
+}
+
+a {
+  color: $text-color;
+
+  &:link, &:visited {
+    text-decoration: none;
+  }
+
+  &:hover, &:active {
+    text-decoration: underline;
+  }
+}
+
+.number {
+  font-size: 2rem;
+}

@@ -1,0 +1,4 @@
+<div class="column" *ngIf="config">
+  <h2>{{ config.title }}</h2>
+  <app-widget *ngFor="let widgetConfig of config.widgetConfigs" [config]="widgetConfig"></app-widget>
+</div>

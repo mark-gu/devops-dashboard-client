@@ -1,0 +1,40 @@
+<div class="dashboard">
+  <div *ngIf="config">
+    <h1 class="display-4 text-center">{{ config.title }}</h1>
+    <p class="text-muted text-center">{{ config.description }}</p>
+
+    <div class="row">
+      <app-column class="col-12 col-sm-6 col-lg-4 col-xl-3" *ngFor="let columnConfig of config.columnConfigs" [config]="columnConfig"></app-column>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div class="action uploader">
+      <label for="upload">
+        <fa-icon icon="upload" title="Upload your own dashboard configuration"></fa-icon>
+      </label>
+      <input id="upload" type="file" accept=".yml,.yaml" (change)="configFileChange($event)"/>
+    </div>
+    <div class="action themeToggler">
+      <label (click)="toggleTheme()">
+        <fa-icon icon="moon" title="Toggle between the dark and light themes"></fa-icon>
+      </label>
+    </div>
+  </div>
+
+  <div *ngIf="displayMessage" class="jumbotron alert" [class.alert-danger]="displayMessage.severity === 'error'" [class.alert-info]="displayMessage.severity === 'info'">
+    <div class="container">
+      <h1 class="display-4">{{ displayMessage.title }}</h1>
+      <p class="lead">{{ displayMessage.message }}</p>
+
+      <hr class="my-4">
+      <p *ngIf="displayMessage.detail">{{ displayMessage.detail }}</p>
+
+      <pre *ngIf="displayMessage.debug"><code>{{ displayMessage.debug }}</code></pre>
+    </div>
+    <!-- <a href="/" class="btn btn-link btn-lg">
+      <span>
+        <fa-icon icon="hand-point-left"></fa-icon> Back to the default dashboad</span>
+    </a> -->
+  </div>
+</div>

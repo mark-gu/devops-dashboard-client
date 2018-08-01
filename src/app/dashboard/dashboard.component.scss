@@ -1,0 +1,42 @@
+h1 small {
+  display: block;
+}
+
+.jumbotron {
+  margin-top: 4rem;
+}
+
+.actions {
+  position: fixed;
+  right: 1rem;
+  top: 0.5rem;
+
+  >.action {
+    display: inline-block;
+
+    >label {
+      display: block;
+      padding: 10px 12px;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+      [icon] {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+.action.uploader input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+  opacity: 0;
+}

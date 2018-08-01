@@ -1,0 +1,107 @@
+@import "../../styles/variables.scss";
+
+.build-results {
+  .build-history {
+    display: inline-block;
+    margin-top: 1.25rem;
+    vertical-align: top;
+
+    a > * {
+      display: block;
+      height: 0.3rem;
+      margin: 0 0.5rem 0.2rem 0;
+      opacity: 0.4;
+      animation-name: fadeIn;
+      animation-duration: 5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      &.danger {
+        margin-right: 0;
+      }
+    }
+
+    $n: 9;
+    $i: $n;
+    @while $i>0 {
+      .status-#{$i} > * {
+        animation-delay: (($n - $i) * 200ms);
+      }
+      $i: $i - 1;
+    }
+  }
+
+  .latest-build {
+    .build-status {
+      padding: 0 0.5rem;
+
+      [icon] {
+        font-size: 4rem;
+      }
+
+      >span {
+        display: block;
+        text-transform: uppercase;
+      }
+    }
+
+    .build-info {
+      padding-top: 5px;
+      vertical-align: top;
+      width: inherit;
+      >span {
+        display: block;
+        text-align: right;
+        a {
+          margin-left: 5px;
+          margin-right: 0;
+        }
+        &.reason {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          direction: rtl;
+        }
+      }
+    }
+  }
+}
+
+[icon="spinner"] {
+  color: $info-color;
+  animation-name: rotateThis;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+[icon="check"] {
+  color: $success-color;
+}
+
+[icon="times"] {
+  color: $danger-color;
+}
+
+@keyframes rotateThis {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.4;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
