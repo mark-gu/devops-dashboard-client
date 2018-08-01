@@ -9,18 +9,15 @@
   </div>
 
   <div class="actions">
-    <div class="action uploader">
-      <label for="upload">
-        <fa-icon icon="upload" title="Upload your own dashboard configuration"></fa-icon>
-      </label>
-      <input id="upload" type="file" accept=".yml,.yaml" (change)="configFileChange($event)"/>
-    </div>
-    <div class="action themeToggler">
-      <label (click)="toggleTheme()">
-        <fa-icon icon="moon" title="Toggle between the dark and light themes"></fa-icon>
-      </label>
-    </div>
+    <label id="file-selector" class="action" (click)="selectFile()" title="Upload your own dashboard configuration">
+      <fa-icon icon="upload"></fa-icon>
+    </label>
+    <label id="theme-toggler" class="action" (click)="toggleTheme()" title="Toggle between the dark and light themes">
+      <fa-icon icon="moon"></fa-icon>
+    </label>
   </div>
+
+  <input id="upload" type="file" accept=".json,.yml,.yaml" (change)="configFileChange($event)" />
 
   <div *ngIf="displayMessage" class="jumbotron alert" [class.alert-danger]="displayMessage.severity === 'error'" [class.alert-info]="displayMessage.severity === 'info'">
     <div class="container">

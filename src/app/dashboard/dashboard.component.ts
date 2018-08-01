@@ -31,12 +31,23 @@ export class DashboardComponent extends AppBaseComponent {
     return Promise.resolve();
   }
 
+  public selectFile() {
+    $('input#upload').click();
+  }
+
   public toggleTheme() {
-    const $elements = $('body, a');
-    if ($elements.hasClass('bg-dark')) {
-      $elements.removeClass('bg-dark text-light');
+    const $body = $('body');
+    if ($body.hasClass('bg-dark')) {
+      $body.removeClass('bg-dark text-light');
     } else {
-      $elements.addClass('bg-dark text-light');
+      $body.addClass('bg-dark text-light');
+    }
+
+    const $buttons = $('button, .btn');
+    if ($buttons.hasClass('btn-dark')) {
+      $buttons.removeClass('btn-dark').addClass('btn-light');
+    } else {
+      $buttons.removeClass('btn-light').addClass('btn-dark');
     }
   }
 
