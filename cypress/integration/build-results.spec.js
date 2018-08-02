@@ -8,7 +8,7 @@ context('Build Results', () => {
         title: "Branch master",
         type: "build-results",
         provider: "bamboo",
-        planId: "IF-WK8"
+        projectId: "IF-WK8"
       }]
     }]
   }
@@ -37,20 +37,23 @@ context('Build Results', () => {
   it('should only display the latest build result when there is a single build', () => {
     const buildResults = [
       {
+        projectId: 'test-project',
+        buildId: '77aae278-9d5a-480b-898e-c9191054416a',
         buildNumber: 1,
         status: "Successful",
       }
     ]
 
     const latestBuildDetail = {
+      buildId: '77aae278-9d5a-480b-898e-c9191054416a',
       buildNumber: 1,
       status: "Successful",
       reason: "Changes by Mark",
       timeStarted: "5 mins ago"
     }
 
-    cy.route(/build-results\/.+\/[^\/]+/, buildResults).as('getBuildResults')
-    cy.route(/build-results\/.+\/[^\/]+\/\d/, latestBuildDetail).as('getLatestBuildDetail')
+    cy.route(/build-results\/.+\/projects\/[^\/]+/, buildResults).as('getBuildResults')
+    cy.route(/build-results\/.+\/builds\/[^\/]+/, latestBuildDetail).as('getLatestBuildDetail')
 
     cy.visit('/')
     cy.wait('@getBuildResults')

@@ -23,16 +23,16 @@ export interface WidgetConfig {
   provider: string;
 }
 
-export interface BuildResultsWidgetConfig extends WidgetConfig {
-  planId: string;
-}
-
 export interface DashboardConfigUploadResult {
   dashboardName: string;
 }
 
+export interface BuildResultsWidgetConfig extends WidgetConfig {
+  projectId: string;
+}
+
 export interface BuildResult {
-  planId: string;
+  projectId: string;
   buildId: string;
   buildNumber: number;
   reason: string;

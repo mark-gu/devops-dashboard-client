@@ -12,8 +12,8 @@ export class BuildResultsService {
 
   constructor(private _http: HttpClient) { }
 
-  public getRecent(providerName: string, planId: string, top: number = 10): Promise<Model.BuildResult[]> {
-    return this._http.get(`${this._uri}/${providerName}/${planId}?top=${top}`).pipe(
+  public getRecent(providerName: string, projectId: string, top: number = 10): Promise<Model.BuildResult[]> {
+    return this._http.get(`${this._uri}/${providerName}/projects/${projectId}?top=${top}`).pipe(
       map((items: any[]) => {
         items.forEach(this._convertToBuildResult);
         return items;
@@ -21,8 +21,8 @@ export class BuildResultsService {
     ).toPromise();
   }
 
-  public get(providerName: string, planId: string, buildNumber: number): Promise<Model.BuildResult> {
-    return this._http.get(`${this._uri}/${providerName}/${planId}/${buildNumber}`).pipe(
+  public get(providerName: string, buildId: string): Promise<Model.BuildResult> {
+    return this._http.get(`${this._uri}/${providerName}/builds/${buildId}`).pipe(
       map(this._convertToBuildResult)
     ).toPromise();
   }

@@ -27,7 +27,7 @@ export class BuildResultsComponent extends AppBaseComponent {
   private _loadBuildResults(): Promise<void> {
     const config = this.config;
 
-    return this._service.getRecent(config.provider, config.planId).then(result => {
+    return this._service.getRecent(config.provider, config.projectId).then(result => {
       const builds = result || [];
       this.buildResults = {
         all: builds,
@@ -46,7 +46,7 @@ export class BuildResultsComponent extends AppBaseComponent {
     clearTimeout(this._refreshLatestTimer);
 
     if (this.buildResults.latest) {
-      return this._service.get(this.config.provider, this.buildResults.latest.planId, this.buildResults.latest.buildNumber).then(result => {
+      return this._service.get(this.config.provider, this.buildResults.latest.buildId).then(result => {
         const latest = this.buildResults.latest;
         if (!latest || (result && latest.buildId === result.buildId && JSON.stringify(latest) !== JSON.stringify(result))) {
           this.buildResults.latest = result;
