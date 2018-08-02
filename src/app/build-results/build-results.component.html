@@ -1,7 +1,14 @@
-<div class="widget build-results" *ngIf="config && buildResults && buildResults.latest">
+<div class="widget build-results" *ngIf="config && buildResults">
   <h3>{{ config.title }}</h3>
 
-  <div class="row no-gutters">
+  <div *ngIf="!buildResults.latest">
+    <div class="no-builds-message text-center border-bottom py-3">
+      <p class="lead">No build available...</p>
+      <p class="text-muted">Be the first to start your build!</p>
+    </div>
+  </div>
+
+  <div class="row no-gutters" *ngIf="buildResults.latest">
     <div class="build-history col-1">
       <a *ngFor="let item of buildResults.previous; let i = index" [href]="item.uri" target="_blank" [class]="'status-' + (i+1)" [title]="'Build #' + item.buildNumber">
         <span [class]="item.class"></span>
@@ -18,7 +25,9 @@
         </div>
 
         <div class="build-info col-8">
-          <span>Build #<a class="number" href="{{ buildResults.latest.uri }}" target="_blank">{{ buildResults.latest.buildNumber }}</a></span>
+          <span>Build #
+            <a class="number" href="{{ buildResults.latest.uri }}" target="_blank">{{ buildResults.latest.buildNumber }}</a>
+          </span>
           <span class="reason">{{ buildResults.latest.reason }}</span>
           <span>{{ buildResults.latest.timeStarted}}</span>
         </div>
