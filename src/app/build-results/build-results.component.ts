@@ -45,10 +45,11 @@ export class BuildResultsComponent extends AppBaseComponent {
   private _loadLatestBuildDetails(): Promise<void> {
     clearTimeout(this._refreshLatestTimer);
 
-    if (this.buildResults.latest) {
-      return this._service.get(this.config.provider, this.buildResults.latest.buildId).then(result => {
-        const latest = this.buildResults.latest;
-        if (!latest || (result && latest.buildId === result.buildId && JSON.stringify(latest) !== JSON.stringify(result))) {
+    const latest = this.buildResults.latest;
+    if (latest) {
+      return this._service.get(this.config.provider, latest.projectId, latest.buildId).then(result => {
+        const latestInner = this.buildResults.latest;
+        if (!latestInner || (result && latestInner.buildId === result.buildId && JSON.stringify(latestInner) !== JSON.stringify(result))) {
           this.buildResults.latest = result;
         }
 

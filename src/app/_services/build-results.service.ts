@@ -21,8 +21,8 @@ export class BuildResultsService {
     ).toPromise();
   }
 
-  public get(providerName: string, buildId: string): Promise<Model.BuildResult> {
-    return this._http.get(`${this._uri}/${providerName}/builds/${buildId}`).pipe(
+  public get(providerName: string, projectId: string, buildId: string): Promise<Model.BuildResult> {
+    return this._http.get(`${this._uri}/${providerName}/projects/${projectId}/builds/${buildId}`).pipe(
       map(this._convertToBuildResult)
     ).toPromise();
   }
