@@ -1,5 +1,5 @@
 <div class="dashboard">
-  <div *ngIf="config">
+  <div *ngIf="!error && config">
     <h1 class="display-4 text-center">{{ config.title }}</h1>
     <p class="text-muted text-center">{{ config.description }}</p>
 
@@ -7,17 +7,6 @@
       <app-column class="col-12 col-sm-6 col-lg-4 col-xl-3" *ngFor="let columnConfig of config.columnConfigs" [config]="columnConfig"></app-column>
     </div>
   </div>
-
-  <div class="actions">
-    <label id="file-selector" class="action" (click)="selectFile()" title="Upload your own dashboard configuration">
-      <fa-icon icon="upload"></fa-icon>
-    </label>
-    <label id="theme-toggler" class="action" (click)="toggleTheme()" title="Toggle between the dark and light themes">
-      <fa-icon icon="moon"></fa-icon>
-    </label>
-  </div>
-
-  <input id="upload" type="file" accept=".json,.yml,.yaml" (change)="configFileChange($event)" />
 
   <div *ngIf="displayMessage" class="jumbotron alert" [class.alert-danger]="displayMessage.severity === 'error'" [class.alert-info]="displayMessage.severity === 'info'">
     <div class="container">
@@ -34,4 +23,15 @@
         <fa-icon icon="hand-point-left"></fa-icon> Back to the default dashboad</span>
     </a> -->
   </div>
+
+  <div class="actions">
+    <label id="file-selector" class="action" (click)="selectFile()" title="Upload your own dashboard configuration">
+      <fa-icon icon="upload"></fa-icon>
+    </label>
+    <label id="theme-toggler" class="action" (click)="toggleTheme()" title="Toggle between the dark and light themes">
+      <fa-icon icon="moon"></fa-icon>
+    </label>
+  </div>
+
+  <input id="upload" type="file" accept=".json,.yml,.yaml" (change)="configFileChange($event)" />
 </div>

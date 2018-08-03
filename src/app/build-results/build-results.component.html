@@ -1,8 +1,8 @@
-<div class="widget build-results" *ngIf="config && buildResults">
+<div class="widget build-results border-bottom py-3" *ngIf="config && buildResults">
   <h3>{{ config.title }}</h3>
 
   <div *ngIf="!buildResults.latest">
-    <div class="no-builds-message text-center border-bottom py-3">
+    <div class="no-builds-message text-center py-3">
       <p class="lead">No build available...</p>
       <p class="text-muted">Be the first to start your build!</p>
     </div>
