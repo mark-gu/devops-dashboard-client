@@ -53,7 +53,7 @@ export class BuildResultsComponent extends AppBaseComponent {
           this.buildResults.latest = result;
         }
 
-        if (result.status === 'Building') {
+        if (this.buildResults.latest.status === 'Building') {
           // Only refresh when the latest build is in the "Building" state.
           this._refreshLatestTimer = setTimeout(this._loadLatestBuildDetails.bind(this), 15 * 1000 /* 15 seconds */);
         }
