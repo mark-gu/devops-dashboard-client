@@ -7,21 +7,12 @@ h1 small {
 }
 
 .actions {
-  position: fixed;
-  right: 1rem;
-  top: 0.5rem;
-  >* {
-    display: inline-block;
-    padding: 0.5rem;
-    opacity: 0.2;
-    transition: opacity 0.2s;
-    &:hover {
-      cursor: pointer;
-      opacity: 1;
-    }
-    [icon] {
-      font-size: 1rem;
-    }
+  [icon] {
+    font-size: 1rem;
+  }
+
+  .dropdown-toggle::after {
+    display: none;
   }
 }
 
@@ -34,4 +25,5 @@ input#upload {
   width: 0;
   height: 100%;
   opacity: 0;
+  z-index: -100;
 }

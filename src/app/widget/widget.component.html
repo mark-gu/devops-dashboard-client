@@ -1,5 +1,5 @@
 <div *ngIf="config" [ngSwitch]="config.type">
-  <app-build-results *ngSwitchCase=" 'build-results' " [config]="config"></app-build-results>
+  <app-pipeline *ngSwitchCase=" 'pipeline' " [config]="config"></app-pipeline>
 
   <div *ngSwitchDefault>
   </div>

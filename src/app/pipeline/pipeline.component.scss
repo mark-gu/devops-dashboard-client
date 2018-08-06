@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 
-.build-results {
-  .build-history {
+.pipeline-executions {
+  .execution-history {
     display: inline-block;
     margin-top: 1.25rem;
     vertical-align: top;
@@ -30,8 +30,8 @@
     }
   }
 
-  .latest-build {
-    .build-status {
+  .latest-execution {
+    .execution-status {
       padding: 0 0.5rem;
 
       [icon] {
@@ -44,18 +44,21 @@
       }
     }
 
-    .build-info {
+    .execution-info {
       padding-top: 5px;
       vertical-align: top;
       width: inherit;
-      >span {
+      >* {
         display: block;
         text-align: right;
         a {
           margin-left: 5px;
           margin-right: 0;
         }
-        &.reason {
+        &.label {
+          font-size: 1.5rem;
+        }
+        &.label, &.reason {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -64,14 +67,22 @@
       }
     }
   }
+
+  .code-changes .card {
+    background-color: inherit;
+    font-size: 0.75rem;
+  }
 }
 
-[icon="spinner"] {
-  color: $info-color;
+.execution-status.info .icon-wrapper {
   animation-name: rotateThis;
   animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+}
+
+[icon="spinner"] {
+  color: $info-color;
 }
 
 [icon="check"] {

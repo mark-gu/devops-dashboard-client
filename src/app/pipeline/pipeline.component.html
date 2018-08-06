@@ -1,0 +1,57 @@
+<div class="widget pipeline-executions border-bottom py-3" *ngIf="config">
+  <h3>{{ config.title }}</h3>
+
+  <div *ngIf="!executions.length">
+    <div class="no-execution-message text-center py-3">
+      <p class="lead">No execution available...</p>
+      <p class="text-muted">Be the first to execute your pipeline!</p>
+    </div>
+  </div>
+
+  <div class="row no-gutters">
+    <div class="execution-history col-1">
+      <a *ngFor="let item of executions; let i = index" [href]="item.uri" target="_blank" [class]="'status-' + (i+1)" title="{{ item.ui.label }}">
+        <span [class]="item.ui.statusClass"></span>
+      </a>
+    </div>
+
+    <div class="latest-execution col-11" *ngIf="active">
+      <div class="row no-gutters">
+        <div [class]="'execution-status inverse-color text-center col-4 ' + active.ui.statusClass">
+          <div class="icon-wrapper" [ngSwitch]="active.ui.statusClass">
+            <fa-icon icon="spinner" *ngSwitchCase="'info'"></fa-icon>
+            <fa-icon icon="check" *ngSwitchCase="'success'"></fa-icon>
+            <fa-icon icon="times" *ngSwitchCase="'danger'"></fa-icon>
+          </div>
+          <span>{{ active.status }}</span>
+        </div>
+
+        <div class="execution-info col-8">
+          <span class="label">
+            <a *ngIf="active.uri" href="{{ active.uri }}" target="_blank">{{ active.ui.label }}</a>
+          </span>
+          <span class="label" *ngIf="!active.uri">{{ active.ui.label }}</span>
+          <span>{{ active.timeStarted | amTimeAgo }}</span>
+          <span class="reason" *ngIf="!active.changes.length">{{ active.reason }}</span>
+          <a class="reason" *ngIf="active.changes.length" href="#" data-toggle="collapse" [attr.data-target]="'#exec_' + active.id + '__changes'">
+            {{ active.reason }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="{{ 'exec_' + active.id + '__changes' }}" class="code-changes collapse" *ngIf="active && active.changes.length">
+    <div class="card card-body">
+      <ul class="list-unstyled">
+        <li *ngFor="let change of active.changes">
+          <div class="text-muted" *ngIf="change.uri">
+            <a href="{{ change.uri }}" target="_blank">{{ change.id + (change.author ? ' by ' + change.author : '') }}</a>
+          </div>
+          <div class="text-muted" *ngIf="!change.uri">{{ change.id + (change.author ? ' by ' + change.author : '') }}</div>
+          <div *ngIf="change.summary">{{ change.summary }}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

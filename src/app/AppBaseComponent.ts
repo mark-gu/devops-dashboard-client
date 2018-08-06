@@ -1,4 +1,5 @@
 import { OnInit, OnDestroy } from '@angular/core';
+import * as Bootstrap from 'bootstrap';
 import * as Model from './AppModel';
 
 export abstract class AppBaseComponent implements OnInit, OnDestroy {
@@ -10,6 +11,8 @@ export abstract class AppBaseComponent implements OnInit, OnDestroy {
   protected initializeError: Error;
 
   protected subscriptions: any = {};
+
+  protected bootstrap = Bootstrap;
 
   ngOnInit() {
     this.onInitialize()

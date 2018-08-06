@@ -27,18 +27,46 @@ export interface DashboardConfigUploadResult {
   dashboardName: string;
 }
 
-export interface BuildResultsWidgetConfig extends WidgetConfig {
-  projectId: string;
+export interface PipelineWidgetConfig extends WidgetConfig {
+  pipelineId: string;
 }
 
-export interface BuildResult {
-  projectId: string;
-  buildId: string;
-  buildNumber: number;
+export interface PipelineExecution {
+  pipelineId: string;
+  id: string;
+  sequenceNumber: number;
   reason: string;
   status: string;
-  class: string;
   timeStarted: string;
   duration: string;
   uri: string;
+  ui: {
+    label: string;
+    statusClass: string;
+  };
+}
+
+export interface TestResultWidgetConfig extends WidgetConfig {
+  projectId: string;
+  testStepId: string;
+}
+
+export interface TestResult {
+  projectId: string;
+  testRunId: string;
+  status: string;
+  counter: {
+    succeeded: number;
+    failed: number;
+    skipped: number;
+    quarantine: number;
+  };
+  coverage: {
+    percentage: number;
+    reportUri: string;
+  };
+  timeStarted: string;
+  duration: string;
+  uri: string;
+  reportUri: string;
 }
