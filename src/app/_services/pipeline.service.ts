@@ -15,7 +15,7 @@ export class PipelineService {
   public getRecent(providerName: string, pipelineId: string, top: number = 10): Promise<Model.PipelineExecution[]> {
     return this._http.get(`${this._uri}/${providerName}/${pipelineId}?top=${top}`).pipe(
       map((items: any[]) => {
-        items.forEach(this._enrich);
+        items.forEach(this._enrichPipelineExecution);
         return items;
       })
     ).toPromise();
@@ -23,11 +23,18 @@ export class PipelineService {
 
   public get(providerName: string, pipelineId: string, executionId: string): Promise<Model.PipelineExecution> {
     return this._http.get(`${this._uri}/${providerName}/${pipelineId}/executions/${executionId}`).pipe(
-      map(this._enrich)
+      map(this._enrichPipelineExecution)
     ).toPromise();
   }
 
-  private _enrich(item: any): Model.PipelineExecution {
+  // tslint:disable-next-line:max-line-length
+  public getTestRun(providerName: string, pipelineId: string, executionId: string, testStepId: string): Promise<Model.PipelineTestRun> {
+    return this._http.get(`${this._uri}/${providerName}/${pipelineId}/executions/${executionId}/test-steps/${testStepId}`).pipe(
+      map(this._enrichPipelineTestRun)
+    ).toPromise();
+  }
+
+  private _enrichPipelineExecution(item: any): Model.PipelineExecution {
     item.ui = {
       label: item.sequenceNumber ? '#' + item.sequenceNumber : item.id
     };
@@ -45,5 +52,9 @@ export class PipelineService {
     }
 
     return <Model.PipelineExecution>item;
+  }
+
+  private _enrichPipelineTestRun(item: any): Model.PipelineTestRun {
+    return <Model.PipelineTestRun>item;
   }
 }

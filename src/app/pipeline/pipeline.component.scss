@@ -32,7 +32,7 @@
 
   .latest-execution {
     .execution-status {
-      padding: 0 0.5rem;
+      padding: 0 0.5rem 0.5rem 0.5rem;
 
       [icon] {
         font-size: 4rem;
@@ -40,6 +40,7 @@
 
       >span {
         display: block;
+        font-size: 0.8rem;
         text-transform: uppercase;
       }
     }
@@ -66,11 +67,6 @@
         }
       }
     }
-  }
-
-  .code-changes .card {
-    background-color: inherit;
-    font-size: 0.75rem;
   }
 }
 

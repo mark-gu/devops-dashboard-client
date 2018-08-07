@@ -8,7 +8,7 @@ export abstract class AppBaseComponent implements OnInit, OnDestroy {
 
   protected initialized = false;
 
-  protected initializeError: Error;
+  protected error: Error;
 
   protected subscriptions: any = {};
 
@@ -20,7 +20,8 @@ export abstract class AppBaseComponent implements OnInit, OnDestroy {
         this.initialized = true;
       })
       .catch(reason => {
-        this.initializeError = new Error('Component initialization failed.');
+        console.error(reason);
+        this.error = new Error('Component initialization failed.');
       });
   }
 

@@ -29,6 +29,7 @@ export interface DashboardConfigUploadResult {
 
 export interface PipelineWidgetConfig extends WidgetConfig {
   pipelineId: string;
+  testStepConfigs: PipelineTestStepConfig[];
 }
 
 export interface PipelineExecution {
@@ -46,27 +47,32 @@ export interface PipelineExecution {
   };
 }
 
-export interface TestResultWidgetConfig extends WidgetConfig {
-  projectId: string;
-  testStepId: string;
+export interface PipelineTestStepConfig {
+  id: string;
 }
 
-export interface TestResult {
-  projectId: string;
-  testRunId: string;
+export interface PipelineTestRun {
+  pipelineId: string;
+  pipelineExecutionId: string;
+  testStepId: string;
+  id: string;
   status: string;
-  counter: {
-    succeeded: number;
-    failed: number;
-    skipped: number;
-    quarantine: number;
+  counters: {
+      all: number;
+      succeeded: number;
+      failed: number;
+      skipped: number;
+      quarantined: number;
   };
-  coverage: {
-    percentage: number;
-    reportUri: string;
-  };
+  duration: number;
   timeStarted: string;
-  duration: string;
-  uri: string;
-  reportUri: string;
+  uri?: string;
+  artifacts: {
+      name: string;
+      uri: string;
+  }[];
+  coverage?: {
+      percentage: number;
+      reportUri: string;
+  };
 }

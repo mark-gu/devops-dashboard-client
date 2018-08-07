@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { environment } from '../../environments/environment';
 import * as $ from 'jquery';
 import * as Model from '../AppModel';
 import { AppBaseComponent } from '../AppBaseComponent';
@@ -28,14 +29,12 @@ export class PipelineComponent extends AppBaseComponent {
   }
 
   private _loadRecentExecutions(): Promise<void> {
-    const config = this.config;
-
-    return this._service.getRecent(config.provider, config.pipelineId).then(result => {
+    return this._service.getRecent(this.config.provider, this.config.pipelineId).then(result => {
       this.executions = result || [];
       this.active = this.executions[0];
 
       // Periodically check for updates.
-      setTimeout(this._loadRecentExecutions.bind(this), 60 * 1000 /* 60 seconds */);
+      setTimeout(this._loadRecentExecutions.bind(this), environment.refreshIntervalInSecondsForCompletedExecution * 1000);
     }).then(() => {
       this._loadActiveExecutionDetail();
     });
@@ -52,7 +51,8 @@ export class PipelineComponent extends AppBaseComponent {
 
         if (this.active.status === 'In Progress') {
           // Only refresh when the latest build is in the "Building" state.
-          this._refreshLatestTimer = setTimeout(this._loadActiveExecutionDetail.bind(this), 15 * 1000 /* 15 seconds */);
+          // tslint:disable-next-line:max-line-length
+          this._refreshLatestTimer = setTimeout(this._loadActiveExecutionDetail.bind(this), environment.refreshIntervalInSecondsForInProgressExecution * 1000);
         }
       });
     }

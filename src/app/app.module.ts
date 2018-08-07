@@ -11,6 +11,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ColumnComponent } from './column/column.component';
 import { WidgetComponent } from './widget/widget.component';
 import { PipelineComponent } from './pipeline/pipeline.component';
+import { TestStepComponent } from './test-step/test-step.component';
 
 library.add(fas);
 
@@ -20,7 +21,8 @@ library.add(fas);
     DashboardComponent,
     ColumnComponent,
     WidgetComponent,
-    PipelineComponent
+    PipelineComponent,
+    TestStepComponent
   ],
   imports: [
     BrowserModule,

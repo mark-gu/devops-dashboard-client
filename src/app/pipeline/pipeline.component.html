@@ -3,7 +3,7 @@
 
   <div *ngIf="!executions.length">
     <div class="no-execution-message text-center py-3">
-      <p class="lead">No execution available...</p>
+      <p class="lead">No pipeline execution found...</p>
       <p class="text-muted">Be the first to execute your pipeline!</p>
     </div>
   </div>
@@ -53,5 +53,9 @@
         </li>
       </ul>
     </div>
+  </div>
+
+  <div class="test-steps" *ngIf="active">
+    <app-test-step *ngFor="let testStepConfig of config.testStepConfigs" [pipelineConfig]="config" [executionId]="active.id" [config]="testStepConfig"></app-test-step>
   </div>
 </div>
