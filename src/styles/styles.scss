@@ -1,6 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
 @import './variables.scss';
-
 h3 {
   background-color: $secondary;
   color: $light;
@@ -71,4 +70,21 @@ a {
 
 .number {
   font-size: 2rem;
+}
+
+.loading-icon-wrapper {
+  display: inline-block;
+  animation-name: rotateThis;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotateThis {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

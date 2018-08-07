@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { environment } from '../../environments/environment';
 import * as Model from '../AppModel';
 import { AppBaseComponent } from '../AppBaseComponent';
 import { PipelineService } from '../_services/pipeline.service';
@@ -9,6 +10,7 @@ import { PipelineService } from '../_services/pipeline.service';
   styleUrls: ['./test-step.component.scss']
 })
 export class TestStepComponent extends AppBaseComponent {
+  private _refreshTimer: number;
 
   constructor(private _service: PipelineService) {
     super();
@@ -30,12 +32,18 @@ export class TestStepComponent extends AppBaseComponent {
   }
 
   private _loadPipelineTestExecution(): Promise<void> {
+    clearTimeout(this._refreshTimer);
+
     // tslint:disable-next-line:max-line-length
     return this._service.getTestRun(this.pipelineConfig.provider, this.pipelineConfig.pipelineId, this.executionId, this.config.id).then(result => {
       this.active = result;
 
+      const interval = this.active.status === 'Running'
+        ? environment.refreshIntervalInSecondsForInProgressExecution
+        : environment.refreshIntervalInSecondsForCompletedExecution;
+
       // Periodically check for updates.
-      setTimeout(this._loadPipelineTestExecution.bind(this), 60 * 1000 /* 60 seconds */);
+      this._refreshTimer = setTimeout(this._loadPipelineTestExecution.bind(this), interval * 1000);
     });
   }
 }
