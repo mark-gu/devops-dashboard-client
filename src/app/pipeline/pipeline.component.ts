@@ -49,7 +49,7 @@ export class PipelineComponent extends AppBaseComponent {
           $.extend(true, this.active, result);
         }
 
-        if (this.active.status === 'In Progress') {
+        if (this.active.status === 'Running') {
           // Only refresh when the latest build is in the "Building" state.
           // tslint:disable-next-line:max-line-length
           this._refreshLatestTimer = setTimeout(this._loadActiveExecutionDetail.bind(this), environment.refreshIntervalInSecondsForInProgressExecution * 1000);
