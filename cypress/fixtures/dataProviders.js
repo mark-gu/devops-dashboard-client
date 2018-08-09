@@ -10,7 +10,7 @@
         title: "Test Dashboard",
         description: "",
         columnConfigs: [{
-          title: "Web UI",
+          title: "Dashboard UI",
           widgetConfigs: [{
             title: "Branch master",
             type: "pipeline",

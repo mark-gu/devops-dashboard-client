@@ -2,7 +2,7 @@ context('Pipeline Executions', () => {
   beforeEach(() => {
     cy.server({
       method: 'GET',
-      delay: 20,
+      delay: 50,
       headers: {
         'Access-Control-Allow-Origin': '*'
       }
