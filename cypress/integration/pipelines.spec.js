@@ -1,18 +1,4 @@
 context('Pipeline Executions', () => {
-  const dashboardConfig = {
-    title: "Test Dashboard",
-    description: "",
-    columnConfigs: [{
-      title: "Web App",
-      widgetConfigs: [{
-        title: "Branch master",
-        type: "pipeline",
-        provider: "bamboo",
-        projectId: "IF-WK8"
-      }]
-    }]
-  }
-
   beforeEach(() => {
     cy.server({
       method: 'GET',
@@ -22,11 +8,13 @@ context('Pipeline Executions', () => {
       }
     })
 
-    cy.route(/\/dashboards\/[^\/]+/, dashboardConfig)
+    cy.fixture('dataProviders').as('dataProviders').then(dataProviders => {
+      cy.route(/\/dashboards\/.+/, dataProviders.dashboardDataProvider.singlePipeline)
+    })
   })
 
   it('should display a message when there is no execution', () => {
-    cy.route(/\/pipelines\/.+\/[^\/]+/, []).as('getExecutions')
+    cy.route(/\/pipelines\/[^\/]+\/[^\/]+/, []).as('getExecutions')
 
     cy.visit('/')
     cy.wait('@getExecutions')
@@ -34,34 +22,61 @@ context('Pipeline Executions', () => {
     cy.get('.no-execution-message').should('exist')
   })
 
-  it('should only display the latest execution when there is a single execution', () => {
-    const executions = [
-      {
-        pipelineId: 'test-project',
-        id: '77aae278-9d5a-480b-898e-c9191054416a',
-        sequenceNumber: 1,
-        status: "Succeeded",
-      }
-    ]
+  it('should display a single execution correctly', () => {
+    cy.get('@dataProviders').then(dataProviders => {
+      const executions = dataProviders.executionDataProvider.execution_1;
+      const latest = executions[0];
 
-    const latest = {
-      pipelineId: 'test-project',
-      id: '77aae278-9d5a-480b-898e-c9191054416a',
-      sequenceNumber: 1,
-      status: "Succeeded",
-      reason: "Changes by Mark",
-      timeStarted: "5 mins ago"
-    }
+      cy.route(/\/pipelines\/[^\/]+\/[^\/]+/, executions).as('getExecutions')
+      cy.route(/\/pipelines\/[^\/]+\/[^\/]+\/executions\/[^\/]+/, latest).as('getExecutionDetail')
 
-    cy.route(/\/pipelines\/\/[^\/]+\/[^\/]+/, executions).as('getExecutions')
-    cy.route(/\/pipelines\/\/[^\/]+\/[^\/]+\/executions\/[^\/]+/, latest).as('getExecutionDetail')
+      cy.visit('/')
+      cy.wait('@getExecutions')
+      cy.wait('@getExecutionDetail')
 
-    cy.visit('/')
-    cy.wait('@getExecutions')
-    cy.wait('@getExecutionDetail')
+      cy.get('.execution-history > a').should($a => {
+        expect($a).to.have.length(1)
+      })
 
-    cy.get('.latest-execution').should('exist')
-    cy.get('.latest-execution [icon="check"]').should('exist')
-    cy.get('.latest-execution .execution-info .reason').should('contain', latest.reason)
+      cy.get('.latest-execution').should('exist').within(() => {
+        cy.get('[icon]').should('exist')
+        cy.get('.execution-info .label').should('contain', '#')
+        cy.get('.execution-info .reason').should('contain', latest.reason)
+      })
+    })
+  })
+
+  it('should correctly display all sub-components of a single pipeline execution', () => {
+    cy.get('@dataProviders').then(dataProviders => {
+      const executions = dataProviders.executionDataProvider.execution_1;
+      const latest = executions[0];
+
+      cy.route(/\/pipelines\/[^\/]+\/[^\/]+/, executions).as('getExecutions')
+      cy.route(/\/pipelines\/[^\/]+\/[^\/]+\/executions\/[^\/]+/, latest).as('getExecutionDetail')
+
+      cy.visit('/')
+      cy.wait('@getExecutions')
+      cy.wait('@getExecutionDetail')
+
+      cy.get('.execution-history > a').should($a => {
+        expect($a).to.have.length(1)
+      })
+
+      cy.get('.latest-execution').should('exist').within(() => {
+        cy.get('[icon]').should('exist')
+        cy.get('.execution-info .label').should('contain', '#')
+        cy.get('.execution-info .reason').should('contain', latest.reason)
+      })
+
+      cy.get('.latest-execution .execution-info .reason').click()
+      cy.get('.code-changes.show').should('exist').within(() => {
+        cy.get('ul > li').should($li => {
+          expect($li).to.have.length(2)
+        })
+      })
+
+      cy.get('.latest-execution .execution-info .reason').click()
+      cy.get('.code-changes.show').should('not.exist')
+    })
   })
 })

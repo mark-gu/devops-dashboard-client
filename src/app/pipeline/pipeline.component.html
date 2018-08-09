@@ -32,8 +32,8 @@
           </span>
           <span class="label" *ngIf="!active.uri">{{ active.ui.label }}</span>
           <span>{{ active.timeStarted | amTimeAgo }}</span>
-          <span class="reason" *ngIf="!active.changes.length">{{ active.reason }}</span>
-          <a class="reason" *ngIf="active.changes.length" href="#" data-toggle="collapse" [attr.data-target]="'#exec_' + active.id + '__changes'">
+          <span class="reason" *ngIf="!active.changes || !active.changes.length">{{ active.reason }}</span>
+          <a class="reason" *ngIf="active.changes && active.changes.length" href="#" data-toggle="collapse" [attr.data-target]="'#exec_' + active.id + '__changes'">
             {{ active.reason }}
           </a>
         </div>
@@ -41,15 +41,15 @@
     </div>
   </div>
 
-  <div id="{{ 'exec_' + active.id + '__changes' }}" class="code-changes collapse" *ngIf="active && active.changes.length">
+  <div id="{{ 'exec_' + active.id + '__changes' }}" class="code-changes collapse" *ngIf="active && active.changes && active.changes.length">
     <div class="card card-body">
       <ul class="list-unstyled">
-        <li *ngFor="let change of active.changes">
-          <div class="text-muted" *ngIf="change.uri">
-            <a href="{{ change.uri }}" target="_blank">{{ change.id + (change.author ? ' by ' + change.author : '') }}</a>
-          </div>
-          <div class="text-muted" *ngIf="!change.uri">{{ change.id + (change.author ? ' by ' + change.author : '') }}</div>
-          <div *ngIf="change.summary">{{ change.summary }}</div>
+        <li class="mb-2" *ngFor="let change of active.changes">
+          <span class="text-muted" *ngIf="change.uri">
+            <a href="{{ change.uri }}" target="_blank">{{ change.id + (change.author ? ' (' + change.author + ')' : '') }}</a>
+          </span>
+          <span class="text-muted" *ngIf="!change.uri">{{ change.id + (change.author ? ' (' + change.author + ')' : '') }}</span>
+          <span *ngIf="change.summary">{{ ' ' + change.summary  + 'adsfasf hjaksdfj asjfas fkljasdflashflkadfl'}}</span>
         </li>
       </ul>
     </div>

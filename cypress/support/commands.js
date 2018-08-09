@@ -23,3 +23,7 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('toggleTheme', () => {
+  cy.get('.dashboard #dropdownMenuButton').click({force: true}).get('#theme-toggler').click()
+})
