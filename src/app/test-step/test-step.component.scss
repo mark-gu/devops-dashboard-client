@@ -1,0 +1,24 @@
+.list-inline {
+  margin: 0;
+}
+
+.metric {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 1rem;
+
+  > * {
+    display: inline-block;
+
+    &.number {
+      text-align: right;
+      min-width: 3rem;
+    }
+
+    &:not(.number) {
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+    }
+  }
+}

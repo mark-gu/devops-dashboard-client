@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - npm install -g npm@latest @angular/cli
+  pre_build:
+    commands:
+      - npm install
+  build:
+    commands:
+      - ng build
+  post_build:
+    commands:
+      - cd dist/devops-dashboard-client
+      - aws s3 sync --delete . s3://devops-dashboard-client-debug
+artifacts:
+  base-directory: dist/devops-dashboard-client
+  files:
+    - '**/*'

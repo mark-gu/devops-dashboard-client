@@ -1,4 +1,7 @@
 export const environment = {
   production: true,
-  serverBaseUri: ''
+  serverBaseUri: '',
+  refreshIntervalInSecondsForDashboard: 300,
+  refreshIntervalInSecondsForCompletedExecution: 60,
+  refreshIntervalInSecondsForInProgressExecution: 15
 };

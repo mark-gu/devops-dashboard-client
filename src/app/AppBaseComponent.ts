@@ -1,4 +1,5 @@
 import { OnInit, OnDestroy } from '@angular/core';
+import * as Bootstrap from 'bootstrap';
 import * as Model from './AppModel';
 
 export abstract class AppBaseComponent implements OnInit, OnDestroy {
@@ -7,9 +8,11 @@ export abstract class AppBaseComponent implements OnInit, OnDestroy {
 
   protected initialized = false;
 
-  protected initializeError: Error;
+  protected error: Error;
 
   protected subscriptions: any = {};
+
+  protected bootstrap = Bootstrap;
 
   ngOnInit() {
     this.onInitialize()
@@ -17,7 +20,8 @@ export abstract class AppBaseComponent implements OnInit, OnDestroy {
         this.initialized = true;
       })
       .catch(reason => {
-        this.initializeError = new Error('Component initialization failed.');
+        console.error(reason);
+        this.error = new Error('Component initialization failed.');
       });
   }
 

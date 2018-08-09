@@ -1,14 +1,25 @@
 @import '~bootstrap/scss/bootstrap';
 @import './variables.scss';
-
 h3 {
+  background-color: $secondary;
+  color: $light;
   font-size: 1rem;
+  padding: 0.25rem;
+}
+
+h4 {
+  font-size: 0.8rem;
+  padding: 0.25rem;
+}
+
+.card {
+  background-color: inherit;
+  font-size: 0.75rem;
 }
 
 .info {
   background-color: $info-color;
   color: $text-color;
-
   &.inverse-color {
     background-color: transparent;
     color: $info-color;
@@ -18,7 +29,6 @@ h3 {
 .success {
   background-color: $success-color;
   color: $text-color;
-
   &.inverse-color {
     background-color: transparent;
     color: $success-color;
@@ -28,7 +38,6 @@ h3 {
 .warn {
   background-color: $warn-color;
   color: $text-color;
-
   &.inverse-color {
     background-color: transparent;
     color: $warn-color;
@@ -38,7 +47,6 @@ h3 {
 .danger {
   background-color: $danger-color;
   color: $text-color;
-
   &.inverse-color {
     background-color: transparent;
     color: $danger-color;
@@ -47,15 +55,14 @@ h3 {
 
 a {
   color: $text-color;
-
-  &:link, &:visited {
+  &:link,
+  &:visited {
     text-decoration: none;
   }
-
-  &:hover, &:active {
+  &:hover,
+  &:active {
     text-decoration: underline;
   }
-
   body.bg-dark & {
     color: $light;
   }
@@ -63,4 +70,21 @@ a {
 
 .number {
   font-size: 2rem;
+}
+
+.loading-icon-wrapper {
+  display: inline-block;
+  animation-name: rotateThis;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotateThis {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

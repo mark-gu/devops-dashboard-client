@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../environments/environment';
 import * as $ from 'jquery';
 import * as Model from '../AppModel';
 import { AppBaseComponent } from '../AppBaseComponent';
@@ -11,6 +12,8 @@ import { DashboardService } from '../_services/dashboard.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent extends AppBaseComponent {
+  private _refreshTimer: number;
+
   public config: Model.DashboardConfig;
 
   public displayMessage: Model.AppDisplayMessage;
@@ -73,6 +76,8 @@ export class DashboardComponent extends AppBaseComponent {
   }
 
   private _loadDashboard(name: string) {
+    clearTimeout(this._refreshTimer);
+
     this._service.get(name).then(result => {
       const newConfig = result;
       if (!newConfig) {
@@ -82,7 +87,7 @@ export class DashboardComponent extends AppBaseComponent {
       }
 
       // Periodically check for updates to the dashboard configuration.
-      setTimeout(this._loadDashboard.bind(this, name), 5 * 60 * 1000 /* 5 mins */);
+      this._refreshTimer = setTimeout(this._loadDashboard.bind(this, name), environment.refreshIntervalInSecondsForDashboard * 1000);
     }).catch(reason => {
       this._createDisplayMessage(name, reason.status, reason.message);
     });

@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  serverBaseUri: 'http://localhost:8800'
+  serverBaseUri: 'http://localhost:8800',
+  refreshIntervalInSecondsForDashboard: 60,
+  refreshIntervalInSecondsForCompletedExecution: 20,
+  refreshIntervalInSecondsForInProgressExecution: 10
 };
 
 /*
