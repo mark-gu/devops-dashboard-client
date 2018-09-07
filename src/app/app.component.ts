@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component } from '@angular/core';
+import * as Bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +9,5 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class AppComponent {
   public title = 'DevOps Dashboard';
 
-  constructor() { }
+  public bootstrap = Bootstrap;
 }
